@@ -13,7 +13,8 @@
 //   document.getElementById("Direction").innerText = compassdir;
 // }
 
-var heading = e.webkitCompassHeading + window.orientation;
+window.addEventListener('deviceorientation', function(e) {
+    console.log(e.webkitCompassHeading);
+    document.getElementById("Direction").innerText = e.webkitCompassHeading;
 
-console.log(heading);
-document.getElementById("heading").innerText = heading;
+}, false);
