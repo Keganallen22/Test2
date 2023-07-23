@@ -51,7 +51,7 @@ if ("geolocation" in navigator) {
 function display(lat, lng, alt, heading) {
   document.getElementById("lat").innerText = lat;
   document.getElementById("lng").innerText = lng;
-  document.getElementById("alt").innerText = alt;
+  document.getElementById("alt").innerText = 'alt = '+ alt;
 
-  document.getElementById("heading").innerText = heading;
+  document.getElementById("heading").innerText = 'heading = ' + heading;
 }
