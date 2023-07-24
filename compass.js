@@ -13,45 +13,36 @@
 //   document.getElementById("Direction").innerText = compassdir;
 // }
 
-var lat = 0;
-var lng = 0;
-var alt = 0;
-var heading = 0;
-function getLocation() {
-// Check if geolocation is supported by the browser
-if ("geolocation" in navigator) {
-  // Prompt user for permission to access their location
-  navigator.geolocation.getCurrentPosition(
-    // Success callback function
-    (position) => {
-      // Get the user's latitude and longitude coordinates
-      lat = position.coords.latitude;
-      lng = position.coords.longitude;
-      alt = position.coords.altitude;
-      heading = position.coords.heading;
-      // Do something with the location data
-      console.log(`Latitude: ${lat}, longitude: ${lng}, altitude: ${alt}`);
-      console.log(heading);
-      display(lat, lng, alt, heading);
+function init() {
+        var compass = document.getElementById('compass');
+        if(window.DeviceOrientationEvent) {
 
-    },
-    // Error callback function
-    (error) => {
-      // Handle errors, e.g. user denied location sharing permissions
-      console.error("Error getting user location:", error);
-    }
-  );
-} else {
-  // Geolocation is not supported by the browser
-  console.error("Geolocation is not supported by this browser.");
-}
+          window.addEventListener('deviceorientation', function(event) {
+                var alpha;
+                //Check for iOS property
+                if(event.webkitCompassHeading) {
+                  alpha = event.webkitCompassHeading;
+                  //Rotation is reversed for iOS
+                  // compass.style.WebkitTransform = 'rotate(-' + alpha + 'deg)';
+                     document.getElementById("Compass").innerText = alpha;
 
-};
+                }
+                //non iOS
+                else {
+                  alpha = event.alpha;
+                  webkitAlpha = alpha;
+                  if(!window.chrome) {
+                    //Assume Android stock (this is crude, but good enough for our example) and apply offset
+                    webkitAlpha = alpha-270;
+                  }
+                }
+                document.getElementById("Compass").innerText = alpha;
+                document.getElementById("Compass2").innerText = webkitAlpha;
 
-function display(lat, lng, alt, heading) {
-  document.getElementById("lat").innerText = lat;
-  document.getElementById("lng").innerText = lng;
-  document.getElementById("alt").innerText = 'alt = '+ alt;
-
-  document.getElementById("heading").innerText = 'heading = ' + heading;
-}
+                // compass.style.Transform = 'rotate(' + alpha + 'deg)';
+                // compass.style.WebkitTransform = 'rotate('+ webkitAlpha + 'deg)';
+                //Rotation is reversed for FF
+                // compass.style.MozTransform = 'rotate(-' + alpha + 'deg)';
+              }, false);
+        }
+      }
