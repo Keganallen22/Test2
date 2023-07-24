@@ -24,7 +24,7 @@ function init() {
                   alpha = event.webkitCompassHeading;
                   //Rotation is reversed for iOS
                   // compass.style.WebkitTransform = 'rotate(-' + alpha + 'deg)';
-                     document.getElementById("Compass").innerText = alpha;
+                     // document.getElementById("Compass").innerText = alpha;
 
                 }
                 //non iOS
