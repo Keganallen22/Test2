@@ -2,14 +2,18 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="compass.css">
+
     <title></title>
   </head>
-  <body onload="init()">
-    <!-- <button class="btn btn-dark" type="button" onclick="getLocation()">Refresh</button> -->
-    <button class="start-btn">Start compass</button>
-
-<h1 id="Compass">Get lost</h1>
-
+  <body>
+    <div class="compass">
+     <div class="arrow"></div>
+     <div class="compass-circle"></div>
+     <div class="my-point"></div>
+   </div>
+   <button class="start-btn">Start compass</button>
   </body>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
