@@ -6,10 +6,12 @@ body {
 
       .compass {
         position: relative;
-        width: 320px;
-        height: 320px;
+        width: 250px;
+        height: 250px;
         border-radius: 50%;
         box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        /* background: url(images/golfBoxUpdated.png)
+          center no-repeat; */
         margin: auto;
       }
 
@@ -35,7 +37,7 @@ body {
         left: 50%;
         transform: translate(-50%, -50%);
         transition: transform 0.1s ease-out;
-        background: url(https://purepng.com/public/uploads/large/purepng.com-compasscompassinstrumentnavigationcardinal-directionspointsdiagram-1701527842316onq7x.png)
+        background: url(images/Compass.jpg)
           center no-repeat;
         background-size: contain;
       }
@@ -51,4 +53,15 @@ body {
 
       .start-btn {
         margin-bottom: auto;
+      }
+      .stop-btn {
+        margin-bottom: auto;
+        display: none;
+      }
+      .start-btn-cont {
+        margin-bottom: auto;
+        display: none;
+      }
+      .windArrow {
+        position: relative;
       }

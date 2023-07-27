@@ -1,20 +1,31 @@
 const compassCircle = document.querySelector(".compass-circle");
     const myPoint = document.querySelector(".my-point");
     const startBtn = document.querySelector(".start-btn");
+    const startBtnCont = document.querySelector(".start-btn-cont");
+    const stopBtn = document.querySelector(".stop-btn");
+    const windArrow = document.querySelector(".windArrow");
+    var compassStop = null;
+    var canceled = false;
     const isIOS =
       navigator.userAgent.match(/(iPod|iPhone|iPad)/) &&
       navigator.userAgent.match(/AppleWebKit/);
 
+
     function init() {
       startBtn.addEventListener("click", startCompass);
+      stopBtn.addEventListener("click", stopCompass);
+      startBtnCont.addEventListener("click", startButtonCont);
       navigator.geolocation.getCurrentPosition(locationHandler);
 
       if (!isIOS) {
         window.addEventListener("deviceorientationabsolute", handler, true);
       }
+
     }
 
     function startCompass() {
+      startBtn.style.display = "none";
+      stopBtn.style.display = "flex";
       if (isIOS) {
         DeviceOrientationEvent.requestPermission()
           .then((response) => {
@@ -27,10 +38,32 @@ const compassCircle = document.querySelector(".compass-circle");
           .catch(() => alert("not supported"));
       }
     }
+    function stopCompass() {
+      stopBtn.style.display = "none";
+      // startBtn.style.display = "flex";
+
+      window.removeEventListener("deviceorientationabsolute", handler, true);
+
+      compassCircle.style.transform = `translate(-50%, -50%) rotate(${-compass}deg)`;
+      startBtnCont.style.display = "flex";
+
+
+    }
+
+    function startButtonCont() {
+      startBtnCont.style.display = "none";
+      stopBtn.style.display = "flex";
+      window.addEventListener("deviceorientationabsolute", handler, true);
+
+    }
 
     function handler(e) {
       compass = e.webkitCompassHeading || Math.abs(e.alpha - 360);
+      var wind = 180;
+      compass = compass - 180;
+      wind = wind - compass;
       compassCircle.style.transform = `translate(-50%, -50%) rotate(${-compass}deg)`;
+      windArrow.style.transform = `rotate(${-wind}deg)`;
 
       // ±15 degree
       if (
@@ -43,6 +76,7 @@ const compassCircle = document.querySelector(".compass-circle");
       } else if (pointDegree) {
         myPoint.style.opacity = 1;
       }
+
     }
 
     let pointDegree;
