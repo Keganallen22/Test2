@@ -42,9 +42,13 @@ const compassCircle = document.querySelector(".compass-circle");
       stopBtn.style.display = "none";
       // startBtn.style.display = "flex";
 
-      window.removeEventListener("deviceorientationabsolute", handler, true);
+      if (!isIOS) {
+        window.removeEventListener("deviceorientationabsolute", handler, true);
+      }else {
+        window.removeEventListener("deviceorientation", handler, true);
+      }
 
-      compassCircle.style.transform = `translate(-50%, -50%) rotate(${-compass}deg)`;
+      // compassCircle.style.transform = `translate(-50%, -50%) rotate(${-compass}deg)`;
       startBtnCont.style.display = "flex";
 
 
@@ -53,14 +57,18 @@ const compassCircle = document.querySelector(".compass-circle");
     function startButtonCont() {
       startBtnCont.style.display = "none";
       stopBtn.style.display = "flex";
-      window.addEventListener("deviceorientationabsolute", handler, true);
+      if (!isIOS) {
+        window.addEventListener("deviceorientationabsolute", handler, true);
+      }else {
+        window.addEventListener("deviceorientation", handler, true);
+      }
 
     }
 
     function handler(e) {
       compass = e.webkitCompassHeading || Math.abs(e.alpha - 360);
       var wind = 180;
-      compass = compass - 180;
+      // compass = compass - 180;
       wind = wind - compass;
       compassCircle.style.transform = `translate(-50%, -50%) rotate(${-compass}deg)`;
       windArrow.style.transform = `rotate(${-wind}deg)`;
